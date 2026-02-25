@@ -4,7 +4,7 @@ import { factRepository } from "../repositories/factRepository";
 export const factRouter = Router()
 
 factRouter.get('/random', async (req, res) => {
-    const fact = await factRepository.findOne({})
+    const fact = await factRepository.findOneBy({})
     res.send({
         fact
     })
