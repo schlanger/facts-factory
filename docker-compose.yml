@@ -1,12 +1,18 @@
 
+version: '3.8'
+
 services:
 
   db:
-    image: postgres
+    image: postgres:15
     restart: always
     shm_size: 128mb
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
 
@@ -15,3 +21,41 @@ services:
     restart: always
     ports:
       - 8088:8080
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    volumes:
+      - ./apps/api/src:/usr/src/app/src
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_URL: postgres://postgres:postgres@db:5432/postgres
+    env_file: 
+      - path: ./apps/api/.env
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    volumes:
+      - ./apps/web/src:/usr/src/app/src
+    environment:
+      NODE_ENV: development
+    env_file: 
+      - path: ./apps/web/.env
+    ports:
+      - 5173:5173
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  db-data:
+    name: facts_db_data

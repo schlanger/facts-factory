@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
+    "build": "tsc -b && vite build",
     "dev": "nodemon --config nodemon.json"
   },
   "devDependencies": {
