@@ -19,5 +19,7 @@ COPY apps/web/public ./public
 # Expose web port
 EXPOSE 5173
 
+WORKDIR /usr/src/app/apps/web
+
 # Start the application in development mode
 CMD ["npm", "run", "build"]
