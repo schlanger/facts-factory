@@ -2,6 +2,8 @@
 
 WORKDIR /usr/src/app
 
+RUN mkdir -p apps/api/.apps/
+
 # Copy package.json and install dependencies
 COPY apps/api/package*.json ./
 COPY apps/api/tsconfig.json ./
