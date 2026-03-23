@@ -20,4 +20,4 @@ COPY apps/web/public ./public
 EXPOSE 5173
 
 # Start the application in development mode
-CMD ["npm", "run", "build", "--", "--host", "0.0.0.0"]
+CMD ["npm", "run", "build", "--", "0.0.0.0"]
