@@ -1,25 +1,25 @@
-FROM node:24-alpine
+# --- ÉTAPE 1 : BUILD ---
+FROM node:20-alpine AS builder
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy package.json and configuration files
+# Copie des fichiers de config pour l'install
 COPY apps/web/package*.json ./
-COPY apps/web/tsconfig.json ./
-COPY apps/web/tsconfig.app.json ./
-COPY apps/web/tsconfig.node.json ./
-COPY apps/web/vite.config.ts ./
-COPY apps/web/index.html ./
-
 RUN npm install
 
-# Copy web source code
-COPY apps/web/src ./src
-COPY apps/web/public ./public
+# Copie du reste du code et build
+COPY apps/web/ ./
+RUN npm run build
 
-# Expose web port
-EXPOSE 5173
+# --- ÉTAPE 2 : PRODUCTION (SERVEUR) ---
+FROM nginx:alpine
 
-WORKDIR /usr/src/app/apps/web
+# On copie le dossier 'dist' généré à l'étape précédente vers le dossier Nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Start the application in development mode
-CMD ["npm", "run", "build","nginx", "-g", "daemon off;"]
+# Optionnel : Copier une config Nginx personnalisée si besoin
+# COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
