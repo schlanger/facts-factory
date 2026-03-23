@@ -24,8 +24,8 @@ services:
 
   api:
     build:
-      context: ./apps/api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./apps/api/Dockerfile
     volumes:
       - ./apps/api/src:/usr/src/app/src
     environment:
@@ -42,8 +42,8 @@ services:
 
   web:
     build:
-      context: ./apps/web
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./apps/web/Dockerfile
     volumes:
       - ./apps/web/src:/usr/src/app/src
     environment:

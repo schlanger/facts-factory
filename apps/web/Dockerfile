@@ -2,23 +2,22 @@ FROM node:24-alpine
 
 WORKDIR /usr/src/app
 
-# Copier les fichiers de configuration
-COPY package*.json ./
-COPY tsconfig.json ./
-COPY tsconfig.app.json ./
-COPY tsconfig.node.json ./
-COPY vite.config.ts ./
-COPY index.html ./
+# Copy package.json and configuration files
+COPY apps/web/package*.json ./
+COPY apps/web/tsconfig.json ./
+COPY apps/web/tsconfig.app.json ./
+COPY apps/web/tsconfig.node.json ./
+COPY apps/web/vite.config.ts ./
+COPY apps/web/index.html ./
 
-# Installer les dépendances
 RUN npm install
 
-# Copier le code source
-COPY src ./src
-COPY public ./public
+# Copy web source code
+COPY apps/web/src ./src
+COPY apps/web/public ./public
 
-# Exposer le port
+# Expose web port
 EXPOSE 5173
 
-# Commande de démarrage en développement avec Vite
+# Start the application in development mode
 CMD ["npm", "run", "build", "--", "--host", "0.0.0.0"]
