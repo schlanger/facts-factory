@@ -9,7 +9,7 @@ const app = express()
 
 // Configure CORS with explicit origins
 const corsOptions = {
-  origin: ['http://factfactory-frontend-yov8gi-0c8d92-51-159-119-17.traefik.me/'],
+  origin: ['*'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
 }
