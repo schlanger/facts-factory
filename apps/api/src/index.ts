@@ -9,7 +9,7 @@ const app = express()
 
 // Configure CORS with explicit origins
 const corsOptions = {
-  origin: ['*'],
+  origin: true,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
 }
