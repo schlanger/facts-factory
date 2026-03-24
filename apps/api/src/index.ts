@@ -9,10 +9,9 @@ const app = express()
 
 // Configure CORS with explicit origins
 const corsOptions = {
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://0.0.0.0:5173'],
+  origin: ['http://factfactory-frontend-yov8gi-0c8d92-51-159-119-17.traefik.me/'],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
 }
 
 app.use(cors(corsOptions))
