@@ -4,9 +4,6 @@ FROM node:24-alpine
 # Définition du répertoire de travail dans le conteneur
 WORKDIR /usr/src/app
 
-# Création forcée d'un répertoire spécifique (souvent pour des logs ou du cache)
-RUN mkdir -p apps/api/.apps/
-
 # --- INSTALLATION DES DÉPENDANCES ---
 # On copie d'abord les fichiers de config pour optimiser le cache Docker
 COPY apps/api/package*.json ./
